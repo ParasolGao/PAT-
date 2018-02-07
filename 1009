@@ -1,0 +1,27 @@
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+using namespace std;
+
+
+
+int main(int argc, char const *argv[])
+{
+	int idx = 0;
+	char str[100];
+	char *str1[20];
+
+	gets(str);
+	str1[idx] = strtok(str," ");
+	while(str1[idx] != NULL){
+		idx++;
+		str1[idx] = strtok(NULL," ");	
+	}
+
+	for(int i = idx-1; i >= 1; i--){
+		printf("%s ", str1[i]);
+	}
+	printf("%s\n", str1[0]);
+
+	return 0;
+}

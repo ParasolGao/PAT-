@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+	int num;
+	int sum1,sum2,sum3;
+
+	cin >> num;
+	if(num >= 100 && num < 1000) {
+		sum1 = num / 100;
+		sum2 = num / 10 % 10;
+		sum3 = num % 10;
+		for(int i = 0; i < sum1; i++){
+			cout << 'B';
+		}
+
+		for(int i = 0; i < sum2; i++){
+			cout << 'S';
+		}
+
+		for(int i = 1; i <= sum3; i++){
+			cout << i;
+		}
+		cout << endl;
+	}
+	if( num >= 10 && num < 100 ) {
+		sum1 = num / 10;
+		sum2 = num % 10;
+		for(int i = 0; i < sum1; i++){
+			cout << 'S';
+		}
+
+		for(int i = 1; i <= sum2; i++){
+			cout << i;
+		}
+		cout << endl;
+	}
+
+	if( num < 10 ) {
+		sum1 = num % 10;
+		for(int i = 1; i <= sum1; i++){
+			cout << i;
+		}
+		cout << endl;		
+	}
+
+	return 0;
+}

@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+	int k;
+	int a[102];
+
+	cin >> k;
+	for(int i = 0; i < k; i++){
+		cin >> a[i];
+	}
+
+	return 0;
+}

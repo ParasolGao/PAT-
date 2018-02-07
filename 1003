@@ -1,0 +1,132 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+bool checkLetter(const char a[]) {
+	for(int i = 0; i < strlen(a); i++){
+		if( a[i] != 'P' && a[i] != 'A' && a[i] !='T') {
+			return false;
+		}
+	}
+	return true;	
+}
+
+int checkBefore(int idx,const char a[]){
+	int num = 0;
+	for(int i = idx-1; i >= 0; i--){
+		if( a[i] == 'A') {
+			num++;
+		}
+		else{
+			num = -1;
+			return num;
+		}
+	}
+	return num;
+}
+int checkAfter(int idx,const char a[]) {
+	int num  = 0;
+	int idx2 = 0;
+	for(int i = idx; i < strlen(a); i++){
+		if( a[i] == 'T'){
+			idx2 = i;
+			break;
+		}
+	}
+	for(int i = idx2+1; i < strlen(a); i++){
+		if( a[i] == 'A') {
+			num++;
+		}
+		else{
+			num = -1;
+			return num;
+		}
+	}	
+	return num;
+}
+
+int checkMid(int idx,const char a[]) {
+	int flag = 0;
+	int idx2 = 0;
+	int num =  0;
+	for(int i = idx+1; i < strlen(a); i++) {
+		if(a[i] == 'T'){
+			idx2 = i;
+			flag = 1;
+			break;
+		}
+	}
+
+	for(int i = idx+1; i < idx2; i++) {
+		if( a[i] == 'A') {
+			num++;
+		}
+		else{
+			num = -1;
+			return num;
+		}		
+	}
+	return num;
+}
+bool checkPAT(const char a[]){
+	int numBefore = 0;
+	int numAfter  = 0;
+	int numMid    = 0;
+	for(int i = 0; i < strlen(a); i++){
+		if(a[i] == 'P') {
+			if(i > 0) {
+				numBefore = checkBefore(i,a);	
+			}
+
+			if( i < strlen(a)-2 ) {
+				numAfter  = checkAfter(i,a);
+			} else {
+				numAfter = -1;
+			}
+			numMid = checkMid(i,a);
+			/*
+			cout << "numBefore:" << numBefore << endl;
+			cout << "numMid:"    << numMid    << endl;
+			cout << "numAfter:"  << numAfter  << endl;*/
+			break;
+		}
+	}
+		if(numMid == -1|| numBefore == -1|| numAfter == -1) {
+			return false;
+		}
+		if(numBefore * numMid == numAfter){
+			return true;
+		} else {
+			return false;
+		}
+}
+int main(int argc, char const *argv[])
+{
+	int flag = 1;
+	int n;
+	char a[100];
+
+	cin >> n;
+	getchar();
+	while(n--){
+		gets(a);
+		if(checkLetter(a)){
+			if(checkPAT(a)){
+				flag = 1;
+			}
+			else {
+				flag = 0;
+			}
+		}
+		else{
+			flag = 0;
+		}
+		if(flag == 0){
+			cout << "NO" << endl;
+		}
+		else {
+			cout << "YES" << endl;
+		}
+	}
+	return 0;
+}

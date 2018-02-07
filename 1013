@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+bool isPrime(int num){
+	if(num == 1 || num == 0)
+		return false;
+    for(int i = 2; i <= sqrt(num); i++){
+        if( num % i == 0){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int main(int argc, char const *argv[])
+{
+	int n,m;
+	int idx = 1,time = 0;
+
+	cin >> n >> m;
+	int i = 0;
+	while(idx <= m-n+1) {
+		if(isPrime(i)){
+			time++;
+			if (time >= n) {
+				if (idx % 10 != 0 && idx != m-n+1) {
+					cout << i << " ";
+				} else if(idx % 10 == 0 && idx != m-n+1){
+					cout << i << endl;
+				} else {
+					cout << i;
+				}
+				idx++;
+			}
+			
+		}
+		i++;
+	}
+	return 0;
+		
+}

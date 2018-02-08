@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+
+int idxHigh = 0,idxMid = 0,idxLow = 0,idxLowLow = 0,idxLowLowLow = 0;
+int flagL[100003],flagH[100003];
+struct student{
+	int ID;
+	int moral;
+	int study;
+}s[100003],highStu[100003],midStu[100003],lowStu[100003],lowlowStu[100003];
+
+void compare(int n,int l,int h) {
+	for(int i = 0; i < n; i++) {
+		if(s[i].moral < l || s[i].study < l) {
+			idxLowLowLow++;
+		}
+		else if(s[i].moral >= h && s[i].study >= h) {
+			highStu[idxHigh++] = s[i];
+		}
+		else if(s[i].moral >= h && s[i].study < h) {
+			midStu[idxMid++] = s[i];
+		}
+		else if(s[i].moral >= s[i].study && s[i].moral < h && s[i].study < h) {
+			lowStu[idxLow++] = s[i];
+		}else {
+			lowlowStu[idxLowLow++] = s[i];	
+		}
+	}
+}
+
+bool cmp(student s1,student s2) {
+	if ((s1.study + s1.moral) == (s2.study + s2.moral)) {
+		if(s1.moral != s2.moral) {
+			return s1.moral > s2.moral;
+		} else {
+			return s1.ID < s2.ID;			
+		}
+	}
+	return (s1.study + s1.moral) > (s2.study + s2.moral);
+}
+
+int main(int argc, char const *argv[])
+{
+	int n,l,h;
+
+	scanf("%d%d%d",&n,&l,&h);
+	
+	for (int i = 0; i < n; ++i)
+	{
+		scanf("%d%d%d",&s[i].ID,&s[i].moral,&s[i].study);
+	}	
+	compare(n,l,h);
+	cout << n-idxLowLowLow << endl;
+
+	sort(highStu,highStu+idxHigh,cmp);
+	sort(midStu,midStu+idxMid,cmp);
+	sort(lowStu,lowStu+idxLow,cmp);
+	sort(lowlowStu,lowlowStu+idxLowLow,cmp);
+
+	for(int i = 0; i < idxHigh; i++) {
+		printf("%d %d %d\n", highStu[i].ID,highStu[i].moral,highStu[i].study);
+	}	
+	for (int i = 0; i < idxMid; ++i) {
+		printf("%d %d %d\n", midStu[i].ID,midStu[i].moral,midStu[i].study);
+	}
+	for (int i = 0; i < idxLow; ++i) {
+		printf("%d %d %d\n", lowStu[i].ID,lowStu[i].moral,lowStu[i].study);
+	}
+	for (int i = 0; i < idxLowLow; ++i) {
+		printf("%d %d %d\n", lowlowStu[i].ID,lowlowStu[i].moral,lowlowStu[i].study);
+	}
+
+	return 0;
+}

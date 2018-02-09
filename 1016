@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+	int idx = 0;
+	int a,b,da,db;
+	int suma = 0,sumb = 0;
+	cin >> a >> da >> b >> db;
+	while (a) {
+		int num = (a % 10);
+		if(num == da) {
+			suma += ceil(num * pow(10,idx++));
+		}
+		a /= 10;
+	}
+	idx = 0;
+	while (b) {
+		int num = (b % 10);
+		if(num == db) {
+			sumb += ceil((num * pow(10,idx)));
+			idx++;
+		}
+		b /= 10;
+	}
+	cout << suma + sumb << endl;
+	return 0;
+}
